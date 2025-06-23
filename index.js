@@ -2,7 +2,7 @@
 const express = require('express');
 require('dotenv').config();
 const app = express();
-const port = 3000;
+const port = 6969;
 app.use(express.json());
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/reports', require('./routes/reports'));
