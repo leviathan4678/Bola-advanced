@@ -1,0 +1,8 @@
+# Thư mục chứa các thư viện đã cài đặt
+/node_modules
+
+# File chứa biến môi trường nhạy cảm
+.env
+
+# Các file log
+npm-debug.log*
