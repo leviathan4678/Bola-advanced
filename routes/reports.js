@@ -9,6 +9,30 @@ router.use(auth);
 // Lấy danh sách báo cáo (an toàn)
 router.get('/', (req, res) => { /* ... */ });
 
+// --- PHẦN ĐƯỢC BỔ SUNG ---
+// Tạo một báo cáo mới (an toàn)
+router.post('/', (req, res) => {
+    const { title, amount, description } = req.body;
+
+    if (!title || !amount) {
+        return res.status(400).json({ msg: 'Vui lòng cung cấp tiêu đề và số tiền' });
+    }
+
+    const newReport = {
+        id: Date.now(), // Tạo ID duy nhất dựa trên timestamp
+        ownerId: req.user.id, // Lấy ID từ token của người dùng đã đăng nhập
+        teamId: req.user.teamId, // Lấy teamId từ token
+        title,
+        amount: parseFloat(amount),
+        description: description || '',
+        status: 'pending'
+    };
+
+    expenseReports.push(newReport);
+    res.status(201).json(newReport);
+});
+// --- KẾT THÚC PHẦN BỔ SUNG ---
+
 // LỖ HỔNG 1: Lấy chi tiết một báo cáo bất kỳ
 router.get('/:reportId', (req, res) => {
     const report = expenseReports.find(r => r.id === parseInt(req.params.reportId));
